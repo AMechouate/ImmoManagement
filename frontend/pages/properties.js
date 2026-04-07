@@ -23,7 +23,7 @@ export default function PropertiesPage() {
       const data = await apiFetch("/api/properties");
       setProperties(data);
     } catch (err) {
-      setError("Unable to load properties");
+      setError("Immobilien konnten nicht geladen werden");
     }
   }
 
@@ -38,7 +38,7 @@ export default function PropertiesPage() {
       const data = await apiFetch(`/api/properties/filter?${params.toString()}`);
       setProperties(data);
     } catch (err) {
-      setError("Unable to filter properties");
+      setError("Filter konnte nicht angewendet werden");
     }
   }
 
@@ -47,7 +47,7 @@ export default function PropertiesPage() {
       await apiFetch(`/api/properties/${id}`, { method: "DELETE" });
       await loadProperties();
     } catch (err) {
-      setError("Delete failed");
+      setError("Loeschen fehlgeschlagen");
     }
   }
 
@@ -59,33 +59,33 @@ export default function PropertiesPage() {
   return (
     <main className="container">
       <div className="row">
-        <h1>Properties</h1>
+        <h1>Immobilien Management</h1>
         <div className="row gap">
-          <Link href="/add-property" className="button-link">Add Property</Link>
-          <button onClick={logout}>Logout</button>
+          <Link href="/add-property" className="button-link">Immobilie anlegen</Link>
+          <button onClick={logout}>Abmelden</button>
         </div>
       </div>
 
       <form onSubmit={applyFilter} className="card form inline">
         <input
-          placeholder="City"
+          placeholder="Stadt"
           value={filters.city}
           onChange={(e) => setFilters({ ...filters, city: e.target.value })}
         />
         <input
-          placeholder="Min Price"
+          placeholder="Preis ab"
           type="number"
           value={filters.minPrice}
           onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
         />
         <input
-          placeholder="Max Price"
+          placeholder="Preis bis"
           type="number"
           value={filters.maxPrice}
           onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
         />
-        <button type="submit">Filter</button>
-        <button type="button" onClick={loadProperties}>Reset</button>
+        <button type="submit">Filtern</button>
+        <button type="button" onClick={loadProperties}>Zuruecksetzen</button>
       </form>
 
       {error && <p className="error">{error}</p>}
@@ -96,12 +96,20 @@ export default function PropertiesPage() {
             <h3>{property.title}</h3>
             <p>{property.address}</p>
             <p>{property.city}</p>
-            <p>Price: {property.price}</p>
-            <p>Commission: {property.commissionPercent}%</p>
-            <p>Photos: {(property.photos || []).length}</p>
+            <p>Preis: {property.price}</p>
+            <p>Provision: {property.commissionPercent}%</p>
+            <p>Bilder: {(property.photos || []).length}</p>
+            <div className="photo-list">
+              {(property.photos || []).map((photoUrl, index) => (
+                <a key={`${property.id}-${index}`} href={photoUrl} target="_blank" rel="noreferrer" className="photo-item">
+                  <img src={photoUrl} alt={`Immobilie ${property.title} Bild ${index + 1}`} className="photo-thumb" />
+                  <span>{photoUrl}</span>
+                </a>
+              ))}
+            </div>
             <div className="row gap">
-              <Link href={`/edit-property/${property.id}`} className="button-link">Edit</Link>
-              <button onClick={() => handleDelete(property.id)}>Delete</button>
+              <Link href={`/edit-property/${property.id}`} className="button-link">Bearbeiten</Link>
+              <button onClick={() => handleDelete(property.id)}>Loeschen</button>
             </div>
           </div>
         ))}

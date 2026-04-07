@@ -33,31 +33,31 @@ export default function AddPropertyPage() {
       });
       router.push("/properties");
     } catch (err) {
-      setError("Could not create property");
+      setError("Immobilie konnte nicht erstellt werden");
     }
   }
 
   return (
     <main className="container">
-      <h1>Add Property</h1>
+      <h1>Immobilie anlegen</h1>
       <form onSubmit={handleSubmit} className="card form">
-        <input placeholder="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
-        <input placeholder="Address" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
-        <input placeholder="City" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
-        <input placeholder="Price" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
+        <input placeholder="Titel" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
+        <input placeholder="Adresse" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+        <input placeholder="Stadt" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
+        <input placeholder="Preis" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
         <input
-          placeholder="Commission Percent"
+          placeholder="Provision in Prozent"
           type="number"
           value={form.commissionPercent}
           onChange={(e) => setForm({ ...form, commissionPercent: e.target.value })}
         />
         <input
-          placeholder="Photos (comma separated URLs)"
+          placeholder="Bild-URLs (mit Komma getrennt)"
           value={form.photos}
           onChange={(e) => setForm({ ...form, photos: e.target.value })}
         />
-        <button type="submit">Create</button>
-        <button type="button" onClick={() => router.push("/properties")}>Cancel</button>
+        <button type="submit">Speichern</button>
+        <button type="button" onClick={() => router.push("/properties")}>Abbrechen</button>
         {error && <p className="error">{error}</p>}
       </form>
     </main>

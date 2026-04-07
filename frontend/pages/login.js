@@ -19,37 +19,37 @@ export default function LoginPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Invalid credentials");
+        throw new Error("Ungueltige Zugangsdaten");
       }
 
       const data = await response.json();
       setToken(data.token);
       router.push("/properties");
     } catch (err) {
-      setError(err.message || "Login failed");
+      setError(err.message || "Anmeldung fehlgeschlagen");
     }
   }
 
   return (
     <main className="container">
-      <h1>Real Estate Login</h1>
+      <h1>Immobilien Management</h1>
       <form onSubmit={handleSubmit} className="card form">
         <label>
-          Username
+          Benutzername
           <input
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
           />
         </label>
         <label>
-          Password
+          Passwort
           <input
             type="password"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">Anmelden</button>
         {error && <p className="error">{error}</p>}
       </form>
     </main>
