@@ -32,8 +32,8 @@ export default function LoginPage() {
 
   return (
     <main className="container">
-      <h1>Immobilien Management</h1>
-      <form onSubmit={handleSubmit} className="card form">
+      <h1 className="login-title">Immobilien Management</h1>
+      <form onSubmit={handleSubmit} className="card form login-form">
         <label>
           Benutzername
           <input
@@ -49,7 +49,9 @@ export default function LoginPage() {
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
         </label>
-        <button type="submit">Anmelden</button>
+        <div className="login-actions">
+          <button type="submit" className="login-button">Anmelden</button>
+        </div>
         {error && <p className="error">{error}</p>}
       </form>
     </main>

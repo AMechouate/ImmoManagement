@@ -51,6 +51,39 @@ body {
   align-items: center;
 }
 
+.login-title {
+  margin-bottom: 14px;
+}
+
+.login-form {
+  max-width: 520px;
+  padding: 20px;
+  gap: 12px;
+}
+
+.login-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.login-form input {
+  width: 100%;
+}
+
+.login-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 4px;
+}
+
+.login-button {
+  width: auto;
+  min-width: 130px;
+  padding: 9px 18px;
+}
+
 input,
 button,
 .button-link {
