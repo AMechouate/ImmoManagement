@@ -93,20 +93,35 @@ export default function PropertiesPage() {
       <div className="grid">
         {properties.map((property) => (
           <div className="card" key={property.id}>
+            <div className="property-gallery" aria-label={`Bilder von ${property.title}`}>
+              {(property.photos || []).length > 0 ? (
+                (property.photos || []).map((photoUrl, index) => (
+                  <a
+                    key={`${property.id}-${index}`}
+                    href={photoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="property-gallery-item"
+                  >
+                    <img
+                      src={photoUrl}
+                      alt={`Immobilie ${property.title} Bild ${index + 1}`}
+                      className="property-gallery-image"
+                    />
+                  </a>
+                ))
+              ) : (
+                <div className="property-gallery-item property-gallery-empty">
+                  <span>Kein Bild verfuegbar</span>
+                </div>
+              )}
+            </div>
             <h3>{property.title}</h3>
             <p>{property.address}</p>
             <p>{property.city}</p>
             <p>Preis: {property.price}</p>
             <p>Provision: {property.commissionPercent}%</p>
             <p>Bilder: {(property.photos || []).length}</p>
-            <div className="photo-list">
-              {(property.photos || []).map((photoUrl, index) => (
-                <a key={`${property.id}-${index}`} href={photoUrl} target="_blank" rel="noreferrer" className="photo-item">
-                  <img src={photoUrl} alt={`Immobilie ${property.title} Bild ${index + 1}`} className="photo-thumb" />
-                  <span>{photoUrl}</span>
-                </a>
-              ))}
-            </div>
             <div className="row gap">
               <Link href={`/edit-property/${property.id}`} className="button-link">Bearbeiten</Link>
               <button onClick={() => handleDelete(property.id)}>Loeschen</button>
